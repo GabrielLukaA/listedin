@@ -15,7 +15,7 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
       child: SizedBox(
         width: double.infinity,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
             Row(

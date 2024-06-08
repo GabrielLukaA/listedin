@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:listedin/app/components/footer/footer.dart';
 import 'package:listedin/app/data/http/http_client.dart';
+import 'package:listedin/app/data/model/user.dart';
 import 'package:listedin/app/data/repositories/list_repository.dart';
+import 'package:listedin/app/pages/config/config.dart';
 import 'package:listedin/app/pages/devs/dev_saymon.dart';
 import 'package:listedin/app/pages/devs/dev_thiago.dart';
 import 'package:listedin/app/data/repositories/user_repository.dart';
@@ -12,17 +14,13 @@ import 'package:listedin/app/pages/lists/lists.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initializeDateFormatting('pt_BR', null);
-  
-  final httpClient = HttpClient();
-  final listRepository = ListRepository(httpClient);
 
-  runApp(MyApp(listRepository: listRepository));
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  final ListRepository listRepository;
 
-  const MyApp({super.key, required this.listRepository});
+  const MyApp({super.key,});
 
   @override
   Widget build(BuildContext context) {
@@ -32,16 +30,15 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page', listRepository: listRepository),
+      home: MyHomePage(title: 'Flutter Demo Home Page',),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
   final String title;
-  final ListRepository listRepository;
 
-  const MyHomePage({super.key, required this.title, required this.listRepository});
+  const MyHomePage({super.key, required this.title,});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -108,11 +105,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => DevThiago(
-                            title: "Opa thiago",
-                            listRepository: widget.listRepository,
-                          )),
-
+                      builder: (context) => Config(
+                      isDark: false,
+                      user: User( id: 1, "testeUserConfig", "estouNaDevthiago@gmail.com"),
+                    )
+                  )
                 );
               },
               child: const Text('Vai lá thiago'),
@@ -120,7 +117,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      bottomNavigationBar: Footer(listRepository: widget.listRepository, isDark: false,),
+      bottomNavigationBar: const Footer(isDark: false,),
     );
   }
 }

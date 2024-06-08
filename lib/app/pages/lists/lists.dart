@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:listedin/app/components/card/card.dart';
+import 'package:listedin/app/components/footer/footer.dart';
 import 'package:listedin/app/components/header/header.dart';
 import 'package:listedin/app/components/input/input.dart';
 import 'package:listedin/app/data/http/http_client.dart';
@@ -19,7 +20,6 @@ class ListsPage extends StatefulWidget {
 }
 
 class _ListsPageState extends State<ListsPage> {
-  final IListRepository listRepository = ListRepository(HttpClient());
   late ListsStore store;
 
   @override
@@ -38,7 +38,7 @@ class _ListsPageState extends State<ListsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const Header(),
+      appBar: Header(),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -115,6 +115,7 @@ class _ListsPageState extends State<ListsPage> {
           )
         ],
       ),
+      bottomNavigationBar: Footer(isDark: false,),
     );
   }
 }

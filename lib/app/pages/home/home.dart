@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:listedin/app/components/week_day/week_list.dart';
+import 'package:listedin/app/data/http/http_client.dart';
 import 'package:listedin/app/data/repositories/list_repository.dart';
 
 class HomePage extends StatefulWidget {
 
-  final ListRepository listRepository;
+  final ListRepository listRepository = ListRepository(HttpClient());
   final bool darkModeOn;
-  const HomePage({super.key, required this.title, required this.listRepository, required this.darkModeOn});
+  HomePage({super.key, required this.title, required this.darkModeOn});
 
   final String title;
 
