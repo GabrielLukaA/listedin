@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:listedin/app/components/footer/footer.dart';
 import 'package:listedin/app/components/header/header.dart';
@@ -6,7 +8,7 @@ import 'package:listedin/app/styles/colors.dart';
 
 class Config extends  StatelessWidget{
   
-  final bool isDark;
+  bool isDark;
   final User user;
 
   const Config({super.key, required this.isDark, required this.user});
@@ -48,18 +50,18 @@ class Config extends  StatelessWidget{
               ]
             ),
             const SizedBox(height: 24,),
-            const Column(
+             Column(
               
               children: [
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("texto"),
-                    Text("Input")
+                    Text("Modo escuro"),
+                    ToggleSwitch(onChangeFunction: () => {isDark = !isDark}, isDark: isDark,)
                   ],
                 ),
-                Row(
+                const Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -67,7 +69,7 @@ class Config extends  StatelessWidget{
                     Text("Input")
                   ],
                 ),
-                Row(
+                const Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -87,3 +89,36 @@ class Config extends  StatelessWidget{
   }
 
 } 
+
+
+
+class ToggleSwitch extends StatefulWidget {
+  final bool isDark;
+  final onChangeFunction;
+  const ToggleSwitch({super.key, required this.onChangeFunction, required this.isDark});
+
+  @override
+  ToggleSwitchState createState() => ToggleSwitchState();
+}
+
+class ToggleSwitchState extends State<ToggleSwitch> {
+  bool isSwitched = false;
+
+  void _toggleSwitch(bool value) {
+    setState(() {
+      isSwitched = value;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Switch(
+      value: isSwitched,
+      onChanged: widget.onChangeFunction,
+      // inactiveTrackColor: darkModal,
+      activeTrackColor: darkModal,
+      activeColor: darkModal,
+
+    );
+  }
+}

@@ -65,7 +65,8 @@ class UserRepository extends IUserRepository {
       Response response = await client.get(path + uri);
       return User.fromJSON(response.data);
     } catch (e) {
-      throw Exception(e);
+      // throw Exception(e);
+      return User("deu erro ao buscar usuario por ID", "deu erro ao buscar usuario por ID");
     }
   }
 
