@@ -1,19 +1,21 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:listedin/app/components/footer/footer.dart';
 import 'package:listedin/app/components/header/header.dart';
 import 'package:listedin/app/data/model/user.dart';
 import 'package:listedin/app/styles/colors.dart';
 
-class Config extends  StatelessWidget{
+class Config extends  StatefulWidget{
   
   bool isDark;
   final User user;
 
-  const Config({super.key, required this.isDark, required this.user});
+  Config({super.key, required this.isDark, required this.user});
 
-  
+  @override
+  State<Config> createState() => _ConfigState();
+}
+
+class _ConfigState extends State<Config> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,8 +45,8 @@ class Config extends  StatelessWidget{
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(user.name, style: TextStyle(fontSize: 20),),
-                    Text(user.email)
+                    Text(widget.user.name, style: TextStyle(fontSize: 20),),
+                    Text(widget.user.email)
                   ],
                 )  
               ]
@@ -58,7 +60,7 @@ class Config extends  StatelessWidget{
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text("Modo escuro"),
-                    ToggleSwitch(onChangeFunction: () => {isDark = !isDark}, isDark: isDark,)
+                    ToggleSwitch(isDark: widget.isDark,)
                   ],
                 ),
                 const Row(
@@ -84,40 +86,42 @@ class Config extends  StatelessWidget{
 
 
 
-      bottomNavigationBar: Footer(isDark: isDark, key: key,),
+      bottomNavigationBar: Footer(isDark: widget.isDark,),
     );
   }
-
 } 
 
 
 
 class ToggleSwitch extends StatefulWidget {
-  final bool isDark;
-  final onChangeFunction;
-  const ToggleSwitch({super.key, required this.onChangeFunction, required this.isDark});
+  bool isDark;
+  // final onChangeFunction;
+  ToggleSwitch({super.key, required this.isDark});
 
   @override
   ToggleSwitchState createState() => ToggleSwitchState();
 }
 
 class ToggleSwitchState extends State<ToggleSwitch> {
-  bool isSwitched = false;
+  // bool isSwitched = false;
 
   void _toggleSwitch(bool value) {
     setState(() {
-      isSwitched = value;
+      widget.isDark = value;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Switch(
-      value: isSwitched,
-      onChanged: widget.onChangeFunction,
+      value: widget.isDark,
+      onChanged: _toggleSwitch,
       // inactiveTrackColor: darkModal,
-      activeTrackColor: darkModal,
-      activeColor: darkModal,
+      activeTrackColor: widget.isDark ? text : primary ,
+      activeColor: widget.isDark ? darkModal : white ,
+      // focusColor: darkModal,
+      // hoverColor: darkModal,
+
 
     );
   }

@@ -7,10 +7,10 @@ import 'package:listedin/app/data/model/user.dart';
 import 'package:listedin/app/data/repositories/list_repository.dart';
 import 'package:listedin/app/pages/config/config.dart';
 import 'package:listedin/app/pages/devs/dev_saymon.dart';
-import 'package:listedin/app/pages/devs/dev_thiago.dart';
 import 'package:listedin/app/data/repositories/user_repository.dart';
 import 'package:listedin/app/pages/devs/store_luka.dart';
 import 'package:listedin/app/pages/lists/lists.dart';
+import 'package:listedin/app/styles/colors.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initializeDateFormatting('pt_BR', null);
@@ -18,12 +18,21 @@ void main() async {
   runApp(MyApp());
 }
 
+var darkTheme = ThemeData(
+  primarySwatch: MaterialColor(0xff6c39be, swatch) Color(0xff6c39be),
+  brightness: Brightness.dark,
+  visualDensity: VisualDensity.adaptivePlatformDensity,
+)
+
 class MyApp extends StatelessWidget {
 
   const MyApp({super.key,});
 
   @override
   Widget build(BuildContext context) {
+
+
+
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
